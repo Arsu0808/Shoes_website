@@ -1,0 +1,493 @@
+/* Mobile-First Enhancements - Beautiful & Attractive Mobile Experience */
+
+/* Touch-friendly interactions */
+* {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Smooth scrolling for mobile */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
+}
+
+/* Mobile-optimized buttons */
+@media (max-width: 768px) {
+  button,
+  .salon-button,
+  a[role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 20px;
+    font-size: 16px;
+    -webkit-tap-highlight-color: rgba(139, 92, 246, 0.2);
+    touch-action: manipulation;
+    user-select: none;
+  }
+
+  /* Enhanced touch feedback */
+  button:active,
+  .salon-button:active,
+  a:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+  }
+
+  /* Swipe-friendly cards */
+  .shoe-card-preview,
+  .category-card,
+  .feature-card,
+  .testimonial-card {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Better mobile spacing */
+  .section {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  /* Mobile-optimized typography */
+  h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    line-height: 1.4;
+  }
+
+  p {
+    font-size: clamp(0.95rem, 2.5vw, 1.125rem);
+    line-height: 1.6;
+  }
+}
+
+/* Mobile-specific animations */
+@media (max-width: 768px) {
+  @keyframes slideUpMobile {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInMobile {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleInMobile {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Apply animations to cards */
+  .shoe-card-preview,
+  .category-card {
+    animation: slideUpMobile 0.5s ease-out;
+  }
+
+  .feature-card {
+    animation: fadeInMobile 0.6s ease-out;
+  }
+}
+
+/* Enhanced mobile navigation */
+@media (max-width: 768px) {
+  .navbar {
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+  }
+
+  .navbar__hamburger {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar__hamburger span {
+    transition: all 0.3s ease;
+  }
+
+  .navbar__hamburger:active span {
+    transform: scale(0.9);
+  }
+
+  /* Sidebar enhancements */
+  .navbar__sidebar {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .navbar__sidebar-content {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .navbar__sidebar-link {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 14px var(--space-md);
+    font-size: 16px;
+  }
+
+  .navbar__sidebar-link:active {
+    background: rgba(139, 92, 246, 0.3);
+    transform: translateX(4px);
+  }
+}
+
+/* Mobile-optimized hero section */
+@media (max-width: 768px) {
+  .hero--shoes {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__content {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--space-lg);
+    animation: fadeInMobile 0.8s ease-out;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-md);
+  }
+
+  .hero__actions .salon-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Mobile carousel improvements */
+@media (max-width: 768px) {
+  .trendy-carousel-container {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+
+  .trendy-carousel-slide {
+    touch-action: pan-y;
+  }
+
+  .trendy-carousel-nav {
+    min-width: 44px;
+    min-height: 44px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .trendy-carousel-nav:active {
+    transform: scale(0.9);
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .trendy-indicator {
+    min-width: 10px;
+    min-height: 10px;
+    touch-action: manipulation;
+  }
+}
+
+/* Mobile grid improvements */
+@media (max-width: 768px) {
+  .shoes-grid-preview {
+    gap: var(--space-md);
+    padding: 0 var(--space-sm);
+  }
+
+  .shoe-card-preview {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .shoe-card-preview:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .category-grid {
+    gap: var(--space-md);
+    padding: 0 var(--space-sm);
+  }
+
+  .category-card {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .category-card:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Mobile form enhancements */
+@media (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 44px;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+  }
+}
+
+/* Mobile cart drawer */
+@media (max-width: 768px) {
+  .cart-drawer {
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    max-height: 90vh;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cart-item {
+    min-height: 80px;
+    padding: var(--space-md);
+  }
+
+  .cart-item-actions {
+    gap: var(--space-sm);
+  }
+
+  .quantity-controls button {
+    min-width: 36px;
+    min-height: 36px;
+  }
+}
+
+/* Mobile checkout */
+@media (max-width: 768px) {
+  .checkout-page {
+    padding: var(--space-md);
+  }
+
+  .checkout-form {
+    gap: var(--space-lg);
+  }
+
+  .checkout-section {
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+  }
+
+  .form-grid {
+    gap: var(--space-md);
+  }
+
+  .checkout-summary {
+    position: sticky;
+    bottom: 0;
+    background: var(--color-surface);
+    border-top: 2px solid var(--color-border);
+    padding: var(--space-lg);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Mobile footer */
+@media (max-width: 768px) {
+  .footer {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .footer__grid {
+    gap: var(--space-lg);
+  }
+
+  .footer__section {
+    margin-bottom: var(--space-lg);
+  }
+
+  .footer__links a {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  * {
+    will-change: auto;
+  }
+
+  .shoe-card-preview,
+  .category-card {
+    will-change: transform;
+  }
+
+  /* Reduce animations on low-end devices */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Small mobile (phones) */
+@media (max-width: 480px) {
+  .section {
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  .hero__content {
+    padding: var(--space-md);
+  }
+
+  .shoes-grid-preview {
+    gap: var(--space-sm);
+    padding: 0;
+  }
+
+  .category-grid {
+    gap: var(--space-sm);
+    padding: 0;
+  }
+
+  .trendy-carousel-container {
+    margin: 0 calc(-1 * var(--space-sm));
+    border-radius: 0;
+  }
+
+  .section-heading {
+    padding: 0 var(--space-sm);
+  }
+
+  .section-heading h2 {
+    font-size: clamp(1.3rem, 6vw, 1.8rem);
+  }
+}
+
+/* Landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero--shoes {
+    min-height: auto;
+    padding: var(--space-md) 0;
+  }
+
+  .hero__content {
+    padding: var(--space-md);
+  }
+
+  .trendy-carousel-container {
+    height: 250px;
+  }
+}
+
+/* iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 768px) {
+    input,
+    textarea,
+    select {
+      font-size: 16px;
+    }
+
+    .navbar {
+      position: -webkit-sticky;
+      position: sticky;
+    }
+  }
+}
+
+/* Android specific enhancements */
+@media (max-width: 768px) {
+  .navbar__sidebar-content {
+    overscroll-behavior-y: contain;
+  }
+
+  .cart-drawer {
+    overscroll-behavior-y: contain;
+  }
+}
+
+/* Loading states for mobile */
+@media (max-width: 768px) {
+  .loading-grid {
+    gap: var(--space-md);
+    padding: 0 var(--space-sm);
+  }
+
+  .shoe-card-skeleton {
+    border-radius: var(--radius-md);
+    min-height: 280px;
+  }
+}
+
+/* Swipe indicators */
+@media (max-width: 768px) {
+  .swipe-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    padding: var(--space-sm);
+    opacity: 0.7;
+  }
+
+  .swipe-hint::before {
+    content: '← →';
+    font-size: 1.2rem;
+  }
+}
+

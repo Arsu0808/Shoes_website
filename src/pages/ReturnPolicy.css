@@ -1,0 +1,274 @@
+.return-page {
+  padding: var(--space-xxl) var(--space-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.return-hero {
+  text-align: center;
+  margin-bottom: var(--space-xxl);
+}
+
+.return-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.return-hero p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.return-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxl);
+}
+
+.return-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: var(--space-lg);
+  color: var(--color-primary);
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.info-card.warning {
+  border-color: rgba(255, 193, 7, 0.3);
+  background: rgba(255, 193, 7, 0.05);
+}
+
+.info-card h3 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.info-card h4 {
+  color: var(--color-secondary);
+  margin-top: var(--space-lg);
+  margin-bottom: 0.75rem;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.75rem;
+}
+
+.info-card li {
+  padding: 0.5rem 0;
+  line-height: 1.8;
+  opacity: 0.9;
+}
+
+.return-conditions {
+  margin-top: var(--space-lg);
+  padding: var(--space-lg);
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.return-not-eligible {
+  margin-top: var(--space-lg);
+  padding: var(--space-lg);
+  background: rgba(244, 67, 54, 0.1);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.return-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.return-step {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: flex-start;
+  padding: var(--space-lg);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+}
+
+.step-content p {
+  opacity: 0.9;
+  line-height: 1.8;
+}
+
+.refund-info {
+  margin-bottom: var(--space-xl);
+}
+
+.refund-info ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.refund-info li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.method-item {
+  text-align: center;
+  padding: var(--space-lg);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.method-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.method-item h4 {
+  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+}
+
+.method-item p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.shipping-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.shipping-item {
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shipping-item.free {
+  background: rgba(76, 175, 80, 0.1);
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.shipping-item.chargeable {
+  background: rgba(255, 193, 7, 0.1);
+  border-color: rgba(255, 193, 7, 0.3);
+}
+
+.shipping-item h3 {
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+}
+
+.shipping-item ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.75rem;
+}
+
+.shipping-item li {
+  padding: 0.5rem 0;
+  opacity: 0.9;
+}
+
+.charge-amount {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.1rem;
+}
+
+.exchange-conditions {
+  margin-top: var(--space-lg);
+  padding: var(--space-lg);
+  background: rgba(33, 150, 243, 0.1);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+.contact-box {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.contact-info {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact-info a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: opacity 0.2s;
+}
+
+.contact-info a:hover {
+  opacity: 0.8;
+}
+
+.contact-info p {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .return-step {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .method-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shipping-info {
+    grid-template-columns: 1fr;
+  }
+}
+

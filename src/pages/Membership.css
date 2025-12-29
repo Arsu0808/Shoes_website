@@ -1,0 +1,44 @@
+.membership-page {
+  padding: var(--space-xxl) var(--space-lg);
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.membership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.membership-grid article {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.membership-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.membership-grid button {
+  border-radius: var(--radius-pill);
+  border: none;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #1f1b2c;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .membership-page {
+    padding: var(--space-xl) var(--space-md);
+  }
+}
+

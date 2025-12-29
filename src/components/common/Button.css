@@ -1,0 +1,96 @@
+.salon-button {
+  border-radius: var(--radius-pill);
+  border: none;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: inherit;
+}
+
+.salon-button:focus-visible {
+  outline: 2px solid var(--color-deep);
+  outline-offset: 2px;
+}
+
+.salon-button--primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #ffffff;
+  box-shadow: var(--shadow-glow), var(--shadow-soft);
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.salon-button--primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.salon-button--primary:hover::before {
+  opacity: 1;
+}
+
+.salon-button--primary:hover {
+  box-shadow: var(--shadow-glow), var(--shadow-card), 0 0 30px rgba(245, 158, 11, 0.5);
+  transform: translateY(-2px);
+}
+
+.salon-button--primary > * {
+  position: relative;
+  z-index: 1;
+}
+
+.salon-button--ghost {
+  border: 2px solid var(--color-primary);
+  background: rgba(30, 58, 138, 0.1);
+  color: var(--color-primary-light);
+  backdrop-filter: blur(10px);
+}
+
+.salon-button--ghost:hover {
+  background: rgba(30, 58, 138, 0.2);
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  color: var(--color-secondary);
+}
+
+.salon-button--link {
+  padding: 0;
+  border-radius: 0;
+  font-weight: 500;
+}
+
+.salon-button--md {
+  padding: 0.85rem 1.75rem;
+  font-size: 0.95rem;
+}
+
+.salon-button--sm {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+}
+
+.salon-button--lg {
+  padding: 1rem 2.2rem;
+  font-size: 1rem;
+}
+
+.salon-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card);
+}
+
+.salon-button__icon {
+  display: inline-flex;
+  align-items: center;
+}
+
