@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import { cartApi } from '../api/cart'
 import { formatINR } from '../utils/currency'
 import { useSession } from '../hooks/useSession'
+import { shoeImages } from '../data/shoeImages'
 import './Cart.css'
 
 export function Cart({ isOpen, onClose }) {
@@ -158,10 +159,52 @@ export function Cart({ isOpen, onClose }) {
         ) : (
           <>
             <div className="cart-items">
-              {cart.items.map((item) => (
+              {cart.items.map((item) => {
+                // Always use local static images - no backend dependency
+                const getCartItemImage = () => {
+                  const category = item.shoe?.category || 'men'
+                  let categoryImages = []
+                  
+                  if (shoeImages[category] && typeof shoeImages[category] === 'object') {
+                    const catData = shoeImages[category]
+                    categoryImages = [
+                      ...(catData.sneakers || []),
+                      ...(catData.slippers || []),
+                      ...(catData.sandals || []),
+                      ...(catData.boots || []),
+                      ...(catData.formal || []),
+                      ...(catData.heels || []),
+                      ...(catData.flats || []),
+                      ...(catData.school || [])
+                    ]
+                  }
+                  
+                  if (categoryImages.length === 0 && category !== 'men') {
+                    const menData = shoeImages.men
+                    if (menData && typeof menData === 'object') {
+                      categoryImages = [
+                        ...(menData.sneakers || []),
+                        ...(menData.slippers || []),
+                        ...(menData.sandals || []),
+                        ...(menData.boots || []),
+                        ...(menData.formal || [])
+                      ]
+                    }
+                  }
+                  
+                  if (categoryImages.length > 0) {
+                    const shoeId = item.shoe?._id || item.shoe?.id || 'default'
+                    const hash = shoeId.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+                    return categoryImages[hash % categoryImages.length] || categoryImages[0]
+                  }
+                  
+                  return 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop'
+                }
+                
+                return (
                 <div key={item._id} className="cart-item">
                   <img 
-                    src={item.shoe?.images?.[0] || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop'} 
+                    src={getCartItemImage()} 
                     alt={item.shoe?.name}
                     onError={(e) => {
                       e.target.src = 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop'
@@ -201,7 +244,8 @@ export function Cart({ isOpen, onClose }) {
                     </button>
                   </div>
                 </div>
-              ))}
+                )
+              })}
             </div>
 
             <div className="cart-summary">

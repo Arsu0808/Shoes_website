@@ -5,6 +5,7 @@ import { cartApi } from '../api/cart'
 import { ordersApi } from '../api/orders'
 import { formatINR } from '../utils/currency'
 import { useSession } from '../hooks/useSession'
+import { shoeImages } from '../data/shoeImages'
 import './Checkout.css'
 
 export default function Checkout() {
@@ -350,10 +351,52 @@ export default function Checkout() {
           <aside className="checkout-summary">
             <h2>Order Summary</h2>
             <div className="order-items">
-              {cart.items.map((item) => (
+              {cart.items.map((item) => {
+                // Always use local static images - no backend dependency
+                const getCheckoutItemImage = () => {
+                  const category = item.shoe?.category || 'men'
+                  let categoryImages = []
+                  
+                  if (shoeImages[category] && typeof shoeImages[category] === 'object') {
+                    const catData = shoeImages[category]
+                    categoryImages = [
+                      ...(catData.sneakers || []),
+                      ...(catData.slippers || []),
+                      ...(catData.sandals || []),
+                      ...(catData.boots || []),
+                      ...(catData.formal || []),
+                      ...(catData.heels || []),
+                      ...(catData.flats || []),
+                      ...(catData.school || [])
+                    ]
+                  }
+                  
+                  if (categoryImages.length === 0 && category !== 'men') {
+                    const menData = shoeImages.men
+                    if (menData && typeof menData === 'object') {
+                      categoryImages = [
+                        ...(menData.sneakers || []),
+                        ...(menData.slippers || []),
+                        ...(menData.sandals || []),
+                        ...(menData.boots || []),
+                        ...(menData.formal || [])
+                      ]
+                    }
+                  }
+                  
+                  if (categoryImages.length > 0) {
+                    const shoeId = item.shoe?._id || item.shoe?.id || 'default'
+                    const hash = shoeId.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+                    return categoryImages[hash % categoryImages.length] || categoryImages[0]
+                  }
+                  
+                  return 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop'
+                }
+                
+                return (
                 <div key={item._id} className="order-item">
                   <img 
-                    src={item.shoe?.images?.[0] || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop'} 
+                    src={getCheckoutItemImage()} 
                     alt={item.shoe?.name}
                     onError={(e) => {
                       e.target.src = 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop'
@@ -369,7 +412,8 @@ export default function Checkout() {
                     {formatINR((item.shoe?.price || 0) * item.quantity)}
                   </div>
                 </div>
-              ))}
+                )
+              })}
             </div>
 
             <div className="order-summary">

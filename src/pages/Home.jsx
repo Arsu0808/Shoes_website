@@ -490,23 +490,48 @@ function FeaturedShoesSection({ shoes, loading }) {
               <Link to={`/shoes?category=${shoe.category}`}>
                 <div className="shoe-card-preview__image">
                   {(() => {
-                    let imageUrl = shoe.images?.[0]
-                    if (!imageUrl) {
-                      let categoryImages = shoeImages[shoe.category]
-                      if (categoryImages && typeof categoryImages === 'object' && !Array.isArray(categoryImages)) {
-                        categoryImages = categoryImages.sneakers || categoryImages.slippers || categoryImages.sandals || categoryImages.formal || categoryImages.heels || categoryImages.flats || categoryImages.boots || []
-                      }
-                      if (!Array.isArray(categoryImages) || categoryImages.length === 0) {
-                        let menImages = shoeImages.men
-                        if (menImages && typeof menImages === 'object' && !Array.isArray(menImages)) {
-                          menImages = menImages.sneakers || menImages.slippers || menImages.sandals || []
-                        }
-                        categoryImages = Array.isArray(menImages) && menImages.length > 0 ? menImages : [
-                          'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop'
+                    // Always use local static images - no backend dependency
+                    const category = shoe.category || 'men'
+                    let categoryImages = []
+                    
+                    if (shoeImages[category] && typeof shoeImages[category] === 'object') {
+                      const catData = shoeImages[category]
+                      categoryImages = [
+                        ...(catData.sneakers || []),
+                        ...(catData.slippers || []),
+                        ...(catData.sandals || []),
+                        ...(catData.boots || []),
+                        ...(catData.formal || []),
+                        ...(catData.heels || []),
+                        ...(catData.flats || []),
+                        ...(catData.school || [])
+                      ]
+                    }
+                    
+                    if (categoryImages.length === 0 && category !== 'men') {
+                      const menData = shoeImages.men
+                      if (menData && typeof menData === 'object') {
+                        categoryImages = [
+                          ...(menData.sneakers || []),
+                          ...(menData.slippers || []),
+                          ...(menData.sandals || []),
+                          ...(menData.boots || []),
+                          ...(menData.formal || [])
                         ]
                       }
-                      imageUrl = categoryImages[0] || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop'
                     }
+                    
+                    if (categoryImages.length === 0) {
+                      categoryImages = [
+                        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop'
+                      ]
+                    }
+                    
+                    // Use a hash of the shoe ID to deterministically select an image
+                    const shoeId = shoe._id || shoe.id || 'default'
+                    const hash = shoeId.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+                    const imageUrl = categoryImages[hash % categoryImages.length] || categoryImages[0]
+                    
                     return <img 
                       src={imageUrl} 
                       alt={shoe.name}

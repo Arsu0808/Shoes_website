@@ -263,14 +263,9 @@ function ShoeCard({ shoe, onSelect }) {
     ? Math.round(((shoe.originalPrice - shoe.price) / shoe.originalPrice) * 100)
     : 0
 
-  // Get default image based on category - use deterministic selection based on shoe ID
+  // Get default image based on category - always use local static images
   const getDefaultImage = () => {
-    // First try to use shoe's own images
-    if (shoe.images && Array.isArray(shoe.images) && shoe.images.length > 0 && shoe.images[0]) {
-      return shoe.images[0]
-    }
-    
-    // Fallback to category images - handle nested structure
+    // Always use local static images - no backend dependency
     const category = shoe.category || 'men'
     let categoryImages = []
     
@@ -488,47 +483,40 @@ function ShoeModal({ shoe, onClose }) {
         <div className="shoe-modal__content">
           <div className="shoe-modal__images">
             {(() => {
-              // First try shoe's own images
-              let imageUrl = shoe.images && Array.isArray(shoe.images) && shoe.images.length > 0 && shoe.images[0]
-                ? shoe.images[0] 
-                : null
+              // Always use local static images - no backend dependency
+              const category = shoe.category || 'men'
+              let categoryImages = []
               
-              if (!imageUrl) {
-                // Fallback to category images - collect all from nested structure
-                const category = shoe.category || 'men'
-                let categoryImages = []
-                
-                if (shoeImages[category] && typeof shoeImages[category] === 'object') {
-                  const catData = shoeImages[category]
+              if (shoeImages[category] && typeof shoeImages[category] === 'object') {
+                const catData = shoeImages[category]
+                categoryImages = [
+                  ...(catData.sneakers || []),
+                  ...(catData.slippers || []),
+                  ...(catData.sandals || []),
+                  ...(catData.boots || []),
+                  ...(catData.formal || []),
+                  ...(catData.heels || []),
+                  ...(catData.flats || []),
+                  ...(catData.school || [])
+                ]
+              }
+              
+              if (categoryImages.length === 0 && category !== 'men') {
+                const menData = shoeImages.men
+                if (menData && typeof menData === 'object') {
                   categoryImages = [
-                    ...(catData.sneakers || []),
-                    ...(catData.slippers || []),
-                    ...(catData.sandals || []),
-                    ...(catData.boots || []),
-                    ...(catData.formal || []),
-                    ...(catData.heels || []),
-                    ...(catData.flats || []),
-                    ...(catData.school || [])
+                    ...(menData.sneakers || []),
+                    ...(menData.slippers || []),
+                    ...(menData.sandals || []),
+                    ...(menData.boots || []),
+                    ...(menData.formal || [])
                   ]
                 }
-                
-                if (categoryImages.length === 0 && category !== 'men') {
-                  const menData = shoeImages.men
-                  if (menData && typeof menData === 'object') {
-                    categoryImages = [
-                      ...(menData.sneakers || []),
-                      ...(menData.slippers || []),
-                      ...(menData.sandals || []),
-                      ...(menData.boots || []),
-                      ...(menData.formal || [])
-                    ]
-                  }
-                }
-                
-                imageUrl = categoryImages.length > 0 
-                  ? categoryImages[0] 
-                  : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop'
               }
+              
+              const imageUrl = categoryImages.length > 0 
+                ? categoryImages[0] 
+                : 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop'
               
               return (
                 <img 
