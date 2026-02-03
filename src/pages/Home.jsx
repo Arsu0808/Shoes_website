@@ -5,6 +5,7 @@ import { shoesApi } from '../api/shoes'
 import { Button } from '../components/common/Button'
 import { formatINR } from '../utils/currency'
 import { heroCarouselImages, shoeImages } from '../data/shoeImages'
+import { getMockFeaturedShoes, getMockMinPrices } from '../data/mockShoes'
 import './Home.css'
 
 const fadeItem = {
@@ -45,7 +46,22 @@ export default function Home() {
         }
         setMinPrices(validMinPrices)
       } catch (error) {
-        console.error('Failed to load data', error)
+        console.log('Backend unavailable, using mock data', error)
+        // Use mock data when backend is unavailable
+        const mockFeatured = getMockFeaturedShoes(6)
+        const mockPrices = getMockMinPrices()
+        setFeaturedShoes(mockFeatured)
+        const validMinPrices = {}
+        Object.keys(mockPrices).forEach(key => {
+          const priceData = mockPrices[key]
+          const value = typeof priceData === 'object' && priceData !== null 
+            ? Number(priceData.minPrice || priceData.price || 0)
+            : Number(priceData)
+          if (!isNaN(value) && value > 0) {
+            validMinPrices[key] = value
+          }
+        })
+        setMinPrices(validMinPrices)
       } finally {
         setLoading(false)
       }

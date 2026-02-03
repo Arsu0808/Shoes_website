@@ -6,6 +6,7 @@ import { cartApi } from '../api/cart'
 import { formatINR } from '../utils/currency'
 import { useSession } from '../hooks/useSession'
 import { shoeImages } from '../data/shoeImages'
+import { getMockShoes, getMockMinPrices } from '../data/mockShoes'
 import './Shoes.css'
 
 const CATEGORIES = [
@@ -72,8 +73,20 @@ export default function Shoes() {
       const errorMessage = err.response?.data?.message || err.message || 'Unable to load shoes'
       const isNetworkError = err.code === 'ERR_NETWORK' || err.message?.includes('Network Error') || errorMessage.includes('Network')
       
+      // Use mock data when backend is unavailable
       if (isNetworkError) {
-        setStatus({ loading: false, error: 'Cannot connect to server. Please ensure the backend is running on port 4000.' })
+        console.log('Backend unavailable, using mock data')
+        const mockData = getMockShoes({
+          category: filters.category,
+          search: filters.search,
+          minPrice: filters.minPrice,
+          maxPrice: filters.maxPrice,
+          sort: filters.sort
+        })
+        const mockPrices = getMockMinPrices()
+        setShoes(mockData)
+        setMinPrices(mockPrices)
+        setStatus({ loading: false, error: '' })
       } else {
         setStatus({ loading: false, error: errorMessage })
       }
@@ -92,7 +105,9 @@ export default function Shoes() {
         const prices = await shoesApi.getMinPrices()
         setMinPrices(prices)
     } catch {
-      // Failed to load min prices, continue without them
+      // Failed to load min prices, use mock data
+      const mockPrices = getMockMinPrices()
+      setMinPrices(mockPrices)
     }
     }
     loadMinPrices()
