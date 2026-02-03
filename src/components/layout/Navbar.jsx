@@ -117,7 +117,14 @@ export function Navbar() {
                 </button>
               </>
             ) : (
-              <NavLink to="/login" className="salon-button salon-button--ghost salon-button--sm">
+              <NavLink 
+                to="/login" 
+                className="salon-button salon-button--ghost salon-button--sm"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSidebarOpen(false)
+                }}
+              >
                 Login
               </NavLink>
             )}

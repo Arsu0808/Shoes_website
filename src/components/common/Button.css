@@ -18,12 +18,23 @@
 
 .salon-button--primary {
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background-size: 200% 200%;
   color: #ffffff;
   box-shadow: var(--shadow-glow), var(--shadow-soft);
   font-weight: 700;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(245, 158, 11, 0.3);
+  animation: buttonGradient 3s ease infinite;
+}
+
+@keyframes buttonGradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .salon-button--primary::before {
@@ -35,13 +46,31 @@
   transition: opacity 0.3s ease;
 }
 
+.salon-button--primary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
 .salon-button--primary:hover::before {
   opacity: 1;
 }
 
+.salon-button--primary:hover::after {
+  width: 300px;
+  height: 300px;
+}
+
 .salon-button--primary:hover {
   box-shadow: var(--shadow-glow), var(--shadow-card), 0 0 30px rgba(245, 158, 11, 0.5);
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.02);
 }
 
 .salon-button--primary > * {
@@ -61,6 +90,7 @@
   border-color: var(--color-secondary);
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
   color: var(--color-secondary);
+  transform: translateY(-2px) scale(1.05);
 }
 
 .salon-button--link {
@@ -85,8 +115,14 @@
 }
 
 .salon-button:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.salon-button:active {
+  transform: translateY(0) scale(0.98);
+  transition: all 0.1s ease;
 }
 
 .salon-button__icon {
